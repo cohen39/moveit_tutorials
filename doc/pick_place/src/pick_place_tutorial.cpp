@@ -100,9 +100,9 @@ void pick(moveit::planning_interface::MoveGroupInterface& arm_group, moveit::pla
   // transform from `"panda_link8"` to the palm of the end effector.
   grasps[0].grasp_pose.header.frame_id = "base_link";
   tf2::Quaternion orientation;
-  orientation.setRPY(-tau / 4, -tau / 8, -tau / 4);
+  orientation.setRPY(tau/4,0,tau/4);
   grasps[0].grasp_pose.pose.orientation = tf2::toMsg(orientation);
-  grasps[0].grasp_pose.pose.position.x = 0.415;
+  grasps[0].grasp_pose.pose.position.x = 0.465;
   grasps[0].grasp_pose.pose.position.y = 0;
   grasps[0].grasp_pose.pose.position.z = 0.5;
 
@@ -158,12 +158,12 @@ void place(moveit::planning_interface::MoveGroupInterface& arm_group, moveit::pl
   // +++++++++++++++++++++++++++
   place_location[0].place_pose.header.frame_id = "base_link";
   tf2::Quaternion orientation;
-  orientation.setRPY(0, 0, tau / 4);  // A quarter turn about the z-axis
+  orientation.setRPY(0, 0, tau / 4);  // A quarter turn about the z-axis, relative to the pick orientation
   place_location[0].place_pose.pose.orientation = tf2::toMsg(orientation);
 
   /* For place location, we set the value to the exact location of the center of the object. */
   place_location[0].place_pose.pose.position.x = 0;
-  place_location[0].place_pose.pose.position.y = 0.5;
+  place_location[0].place_pose.pose.position.y = 0.585;
   place_location[0].place_pose.pose.position.z = 0.5;
 
   // Setting pre-place approach
@@ -220,7 +220,7 @@ void addCollisionObjects(moveit::planning_interface::PlanningSceneInterface& pla
 
   /* Define the pose of the table. */
   collision_objects[0].primitive_poses.resize(1);
-  collision_objects[0].primitive_poses[0].position.x = 0.75;
+  collision_objects[0].primitive_poses[0].position.x = 0.65;
   collision_objects[0].primitive_poses[0].position.y = 0;
   collision_objects[0].primitive_poses[0].position.z = 0.2;
   collision_objects[0].primitive_poses[0].orientation.w = 1.0;
@@ -244,7 +244,7 @@ void addCollisionObjects(moveit::planning_interface::PlanningSceneInterface& pla
   /* Define the pose of the table. */
   collision_objects[1].primitive_poses.resize(1);
   collision_objects[1].primitive_poses[0].position.x = 0;
-  collision_objects[1].primitive_poses[0].position.y = 0.75;
+  collision_objects[1].primitive_poses[0].position.y = 0.65;
   collision_objects[1].primitive_poses[0].position.z = 0.2;
   collision_objects[1].primitive_poses[0].orientation.w = 1.0;
   // END_SUB_TUTORIAL
@@ -266,7 +266,7 @@ void addCollisionObjects(moveit::planning_interface::PlanningSceneInterface& pla
 
   /* Define the pose of the object. */
   collision_objects[2].primitive_poses.resize(1);
-  collision_objects[2].primitive_poses[0].position.x = 0.75;
+  collision_objects[2].primitive_poses[0].position.x = 0.585;
   collision_objects[2].primitive_poses[0].position.y = 0;
   collision_objects[2].primitive_poses[0].position.z = 0.5;
   collision_objects[2].primitive_poses[0].orientation.w = 1.0;
